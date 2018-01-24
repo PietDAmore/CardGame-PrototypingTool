@@ -7,13 +7,13 @@
 		private var pos_x: Number;
 		private var pos_y: Number;
 		private var cards: Vector.<Card> = new Vector.<Card>();
-		private var cards_on_hand: Number;
+		private var cards_on_hand: Number = 0;
 		
 		public function Player(maximum: Number) {
 			
 			this.name_var = name_var;
 			this.maximum = maximum;
-			this.cards_on_hand = 0;
+			this.cards_on_hand;
 			
 		}
 		
@@ -61,7 +61,10 @@
 			
 			if (cards.length < maximum) {
 				
-				cards_on_hand += 1;
+				cards_on_hand += 1; 
+				//trace("cards on hand = "+ cards_on_hand); 
+				//*** problem ist hier noch das maxium wenn mehr Karten auf den Tisch kommen
+				
 				cards.push(card);
 				return true;
 				
@@ -87,7 +90,7 @@
 				},this // für Filter nötig
 			);
 			
-				cards_on_hand -= 1;
+			cards_on_hand -= 1;
 				
 			this.cards.removeAt(index_to_delete);
 				

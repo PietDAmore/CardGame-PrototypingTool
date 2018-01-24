@@ -141,13 +141,26 @@
 		// Functions
 		
 		public function CompareCards(strength: Number):void {
+						
+			var sending_player: Player = playfield;
 			
-			var target_cards: Vector.<Player> = this.playfield// new Vector.<Player>(); // kommt hier ein neuer Vector?
+			//trace("target_cards name " + target_cards.GetName());
+			trace("cards on table " + sending_player.GetCardsOnHand());
+
+			trace("target_cards cards = " + sending_player.GetCards());
 			
-			// füge Elemente in Vector ein
-			target_cards.push(this.playfield);
+			/*
+			for (var i: Number = 0; i < target_cards.length; i++) {
+				
+				trace(target_cards[i].GetNumber());
+				
+			}
+			*/
 			
-			trace(target_cards.GetName());
+			/*
+			var target_card_number: Number = target_cards[1].GetNumber();
+			trace("target_card_number = " + target_card_number);			
+			*/
 			
 			/*
 			target_cards.forEach(function (target_card, index) {
@@ -170,6 +183,7 @@
 					
 			}, this);
 			*/
+
 			
 		}
 		
