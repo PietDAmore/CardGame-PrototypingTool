@@ -36,7 +36,7 @@
 			
 			this.cards = shuffeled_cards;
 			
-			trace("shuffeled_cards " + shuffeled_cards.toString());
+			//trace("shuffeled_cards " + shuffeled_cards.toString());
 			
 		}
 		

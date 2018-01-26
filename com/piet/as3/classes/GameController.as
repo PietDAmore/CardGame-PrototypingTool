@@ -63,17 +63,17 @@
 			// cards2: Vector etc.
 
 			// Kartendeck 1
-			cards.push(new Card(1, "Gregor", "Ritter", 8, "Holz"));
-			cards.push(new Card(2, "Piet", "Hofnarr", 8, "Wasser"));
-			cards.push(new Card(3, "Julia", "Henker", 10, "Feuer"));
-			cards.push(new Card(4, "Janin", "Schurke", 5, "Eisen"));
-			cards.push(new Card(5, "Penner", "Ritter", 3, "Holz"));
-			cards.push(new Card(6, "Arsch", "Hofnarr", 4, "Wasser"));
-			cards.push(new Card(7, "Spätzle", "Henker", 2, "Feuer"));
-			cards.push(new Card(8, "Schinken", "Schurke", 3, "Eisen"));
-			cards.push(new Card(9, "Martin", "Ritter", 9, "Holz"));
-			cards.push(new Card(10, "Sascha", "Hofnarr", 7, "Wasser"));
-			//cards.push(new Card(11, "Sven", "Henker", 6, "Feuer"));
+			cards.push(new Card(1, "A", "Ritter", 1, "Holz"));
+			cards.push(new Card(2, "B", "Hofnarr", 2, "Wasser"));
+			cards.push(new Card(3, "C", "Henker", 3, "Feuer"));
+			cards.push(new Card(4, "D", "Schurke", 4, "Eisen"));
+			cards.push(new Card(5, "E", "Ritter", 5, "Holz"));
+			cards.push(new Card(6, "F", "Hofnarr", 6, "Wasser"));
+			cards.push(new Card(7, "G", "Henker", 7, "Feuer"));
+			cards.push(new Card(8, "H", "Schurke", 8, "Eisen"));
+			cards.push(new Card(9, "I", "Ritter", 9, "Holz"));
+			cards.push(new Card(10, "J", "Hofnarr", 10, "Wasser"));
+			cards.push(new Card(11, "K", "Henker", 11, "Feuer"));
 			
 			// Alle Karten dem Deck hinzufügen
 			this.deck = new Deck(cards);
@@ -108,7 +108,7 @@
 					
 					if (this.deck.GetCards().length != 0) {
 						
-						trace(receiver.GetName() + " has " + receiver.GetCardsOnHand() + " on hand.");
+						//trace(receiver.GetName() + " has " + receiver.GetCardsOnHand() + " on hand.");
 						
 						// pop nimmt die erste Karte
 						receiver.AddCard(this.deck.GetCards().pop()); 
@@ -141,21 +141,49 @@
 		// Functions
 		
 		public function CompareCards(strength: Number):void {
-						
-			var sending_player: Player = playfield;
-			
-			//trace("target_cards name " + target_cards.GetName());
-			trace("cards on table " + sending_player.GetCardsOnHand());
+					
+			var getting_player: Player = playfield;
+			var sending_player: Player = player1;
 
-			trace("target_cards cards = " + sending_player.GetCards());
+			//trace("cards on table " + getting_player.GetCardsOnHand()); // Anzahl der Karten
+			//trace("cards on table " + getting_player.GetCards());	//*** nur 4?
+			//trace("player1 cards = " + player1.GetCards());
 			
-			/*
+			var target_cards: Vector.<Card>= getting_player.GetCards();
+			trace("target_cards " + target_cards);
+			
+			
+			
+			var sender_strength: Number = strength;
+			
 			for (var i: Number = 0; i < target_cards.length; i++) {
 				
-				trace(target_cards[i].GetNumber());
+				//trace(target_cards[i].GetNumber());
 				
+				// determin last card
+				var table_card_amounts: Number = playfield.GetCardsOnHand() -1;
+				
+				// comparisson
+				var compare: Number = target_cards[table_card_amounts].GetNumber();
+				var card_id: Number = target_cards[table_card_amounts].GetId();
+				
+				trace("compare " + compare);
+				
+				if (compare < sender_strength) {
+						
+					trace(sender_strength + " was bigger." + compare);
+					
+					playfield.RemoveCard(card_id);
+
+					
+					//target_cards[table_card_amounts].;
+					
+				}
+				
+				trace("cards on table " + getting_player.GetCards());
+				trace("target_cards " + target_cards);
 			}
-			*/
+
 			
 			/*
 			var target_card_number: Number = target_cards[1].GetNumber();
