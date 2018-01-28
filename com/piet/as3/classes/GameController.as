@@ -142,42 +142,44 @@
 		
 		// Functions
 		
-		public function CompareCards(strength: Number):void {
+		public function CompareCards(card_id: Number, card_name: String, card_type: String, card_number: Number, card_symbol: String):void {
 					
 			var getting_player: Player = playfield;
 			var sending_player: Player = player1;
 			
 			// determin last card
 			var table_card_amounts: Number = playfield.GetCardsOnHand() -1;
-
-			//trace("cards on table " + getting_player.GetCardsOnHand()); // Anzahl der Karten
-			//trace("cards on table " + getting_player.GetCards());	//*** nur 4?
-			//trace("player1 cards = " + player1.GetCards());
 			
+			// check the cards
+			var played_cards: Vector.<Card>= sending_player.GetCards();
 			var target_cards: Vector.<Card>= getting_player.GetCards();
 			
-			// var sender_id: Number = id;
-			var sender_strength: Number = strength;
-			
+			// check and compare all cards on table
 			for (var i: Number = 0; i < target_cards.length; i++) {
 		
-				// comparisson
-				var compare: Number = target_cards[i].GetNumber();
-				var card_id: Number = target_cards[i].GetId();
-			
-				//trace(compare + " compared to " + sender_strength);
+				// get comparisson parameters
+				var table_card_id: Number = target_cards[i].GetId();
+				var table_card_name: String = target_cards[i].GetName();
+				var table_card_number: Number = target_cards[i].GetNumber();	// Stärke vergleich
 				
-				if (sender_strength > compare) {
+				if (card_number > table_card_number) {
 					
-					trace(sender_strength + " was bigger then " + compare);
-
-					playfield.RemoveCard(compare);
-					target_cards[compare].setUnvisible(false);
+					trace(card_number + " was bigger then " + table_card_number);
+				
 					
-					//table_card_amounts = playfield.GetCardsOnHand() -1;
-					//trace("cards left on table " + table_card_amounts);
+					trace("trying to delete " + played_cards[card_id]);
+					played_cards[card_id].removeChildMC();
 					
-					//target_cards[table_card_amounts].;
+					trace("trying to delete " + target_cards[table_card_id]);
+					target_cards[table_card_id].removeChildMC();
+					
+					getting_player.RemoveCard(table_card_id);
+					sending_player.RemoveCard(card_id);
+					
+				
+				} else {
+					
+					trace(card_number + " was smaller then " + table_card_number);
 					
 				}
 

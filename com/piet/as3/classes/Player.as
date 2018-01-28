@@ -1,4 +1,5 @@
 ﻿package com.piet.as3.classes {
+	import flash.display.MovieClip;
 		
 	public class Player {
 		
@@ -93,8 +94,7 @@
 			cards_on_hand -= 1;
 				
 			this.cards.removeAt(index_to_delete);
-				
-			
+		
 			
 		}
 		

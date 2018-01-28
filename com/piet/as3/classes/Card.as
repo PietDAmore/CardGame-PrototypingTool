@@ -76,6 +76,13 @@
 			
 		}
 		
+		public function removeChildMC(): void {
+			
+			card_mc.visible = false;
+			//removeChild();
+			
+		}
+		
 		public function toString(): String {
 				
 			return card_name;
@@ -96,7 +103,7 @@
 			mc_card.gotoAndStop(target_frame);
 			this.setMC(mc_card);
 			
-			mc_card.addEventListener(MouseEvent.MOUSE_DOWN, Card.ClickOnCard);
+			mc_card.addEventListener(MouseEvent.MOUSE_DOWN, Card.ClickOnCard(card_id, card_name, card_type, card_number, card_symbol));
 			
 			return mc_card;
 			
@@ -114,27 +121,31 @@
 			
 		}
 
-		public static function ClickOnCard(e): void {
+		public static function ClickOnCard(card_id: Number, card_name: String, card_type: String, card_number: Number, card_symbol: String): Function {
+			
+			return function(e:MouseEvent): void {
 
-			var cards_player_var: Number = GameController.GetInstance().cards_played += 1;
-			var active :String = GameController.GetInstance().active_player;
-			var card_value = GameController.GetInstance().player_card;
-			
-			var target_x: Number = GameController.GetInstance().playfield_x;			
-			var target_y: Number = GameController.GetInstance().playfield_y;
-			
-			// Find new card positions
-			
-			e.currentTarget.x = target_x;
-			GameController.GetInstance().SetNewTargetX(target_x);			
-			
-			e.currentTarget.y = target_y;			
-			GameController.GetInstance().SwitchPlayer();
-			
-			// Get this card parameters			
-			GameController.GetInstance().CompareCards(card_value); //*** PROBLEM: wie bekomme ich GetNumber() in die 4?
+				var cards_player_var: Number = GameController.GetInstance().cards_played += 1;
+				var active :String = GameController.GetInstance().active_player;
+				
+				var target_x: Number = GameController.GetInstance().playfield_x;			
+				var target_y: Number = GameController.GetInstance().playfield_y;
+				
+				// Find new card positions
+				
+				e.currentTarget.x = target_x;
+				GameController.GetInstance().SetNewTargetX(target_x);			
+				
+				e.currentTarget.y = target_y;			
+				GameController.GetInstance().SwitchPlayer();
+				
+				// Get this card parameters			
+				GameController.GetInstance().CompareCards(card_id, card_name, card_type, card_number, card_symbol); //*** PROBLEM: wie bekomme ich GetNumber() in die 4?
+				
+			}
 		
 		}
+		
 		
 	}
 	
