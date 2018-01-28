@@ -93,9 +93,6 @@
 
 		public function NewRound() {
 
-			// Neue Runde initiieren
-			
-			
 			/// Spieler Reihenfolge festlegen
 			var receivers: Vector.<Player> = new Vector.<Player>();
 
@@ -125,17 +122,19 @@
 					var mc_card: MovieClip = card.GenerateMC(receiver.GetPosX() + index * 160,receiver.GetPosY());
 					
 					card.SetLocation(active_player);
-					SetNewTargetX(mc_card.x);
 					
 					game_container.addChild(mc_card);
 					
 				}, this);
 				
+				receiver.UpdateMC();
+			
+				
 			}, this);
 
 			/// Karte erzeugen
 			if (this.deck.GetCards().length == 0){
-				trace("Karte wurde erzeugt.");
+				// trace("Karte wurde erzeugt.");
 			}
 				
 		}
@@ -144,8 +143,8 @@
 		
 		public function CompareCards(card_id: Number, card_name: String, card_type: String, card_number: Number, card_symbol: String):void {
 					
+			var sending_player: Player = player1; //to do: wer hat die gespielt
 			var getting_player: Player = playfield;
-			var sending_player: Player = player1;
 			
 			// determin last card
 			var table_card_amounts: Number = playfield.GetCardsOnHand() -1;
@@ -153,6 +152,8 @@
 			// check the cards
 			var played_cards: Vector.<Card>= sending_player.GetCards();
 			var target_cards: Vector.<Card>= getting_player.GetCards();
+			var delete_played_card: Boolean = false;
+			var dismissed_cards: Vector.<Number> = new Vector.<Number>();
 			
 			// check and compare all cards on table
 			for (var i: Number = 0; i < target_cards.length; i++) {
@@ -162,35 +163,69 @@
 				var table_card_name: String = target_cards[i].GetName();
 				var table_card_number: Number = target_cards[i].GetNumber();	// Stärke vergleich
 				
+				// comparison
 				if (card_number > table_card_number) {
 					
-					trace(card_number + " was bigger then " + table_card_number);
-				
+					trace(card_number + " was bigger then " + table_card_number);				
 					
-					trace("trying to delete " + played_cards[card_id]);
-					played_cards[card_id].removeChildMC();
+					delete_played_card = true;
+					dismissed_cards.push(target_cards[i].GetId());
 					
-					trace("trying to delete " + target_cards[table_card_id]);
-					target_cards[table_card_id].removeChildMC();
-					
-					getting_player.RemoveCard(table_card_id);
-					sending_player.RemoveCard(card_id);
-					
+					// remove cards on table
+					// target_cards[i].removeChildMC();
+					// getting_player.RemoveCard(i);
 				
 				} else {
 					
 					trace(card_number + " was smaller then " + table_card_number);
 					
 				}
+				
 
 			}
+			
+			if (delete_played_card == true) {
+				
+				// Eliminieren der gelöschten Karten vom Tisch
+				for (var i2: Number = 0; i2 < dismissed_cards.length; i2++) {
+					
+					var dismissed_index: Number = getting_player.getCardIndexById(dismissed_cards[i2]);
+					
+					if (dismissed_index != -1) {
+						
+						target_cards[dismissed_index].removeChildMC();
+					
+						getting_player.RemoveCard(dismissed_index);
+						
+					}
+					
+				}
+				
+				// Eliminieren der abgeworfenen Karten vom Player
+				var index: Number = sending_player.getCardIndexById(card_id);
+					
+				if (index != -1) {
+					
+					played_cards[index].removeChildMC();
+					
+					sending_player.RemoveCard(index);
+					
+				}
+				
+				
+				
+			} else {
+					
+				//*** Baustelle
+				target_cards.push(sending_player.getCardIndexById(card_id));
+				
+			}
 
+			sending_player.UpdateMC();
+			getting_player.UpdateMC();
 			
-			/*
-			var target_card_number: Number = target_cards[1].GetNumber();
-			trace("target_card_number = " + target_card_number);			
-			*/
 			
+				
 			/*
 			target_cards.forEach(function (target_card, index) {
 				
@@ -226,7 +261,9 @@
 			
 			// Special rules
 			if (active_player == "playfield") {
+				
 				// if deck == 0, take all cards and give it to last player
+				
 			}
 			
 			// Turn basics

@@ -63,7 +63,7 @@
 			if (cards.length < maximum) {
 				
 				cards_on_hand += 1; 
-				//trace("cards on hand = "+ cards_on_hand); 
+				
 				//*** problem ist hier noch das maxium wenn mehr Karten auf den Tisch kommen
 				
 				cards.push(card);
@@ -75,26 +75,35 @@
 			
 		}
 		
-		public function RemoveCard(card_id: Number) {
-			
-			// filtert nach der Karte, die die Card Id besitzt
-			var index_to_delete: Number;
-			
-			this.cards.filter(
-			
-				function (card,index){
-						
-						if (card.GetId() == card_id) {
-							index_to_delete = index;
-						}
-						
-				},this // für Filter nötig
-			);
-			
-			cards_on_hand -= 1;
+		public function RemoveCard(index: Number) {
 				
-			this.cards.removeAt(index_to_delete);
+			this.cards.removeAt(index);
 		
+		}
+		
+		public function getCardIndexById(card_id: Number): Number{
+			
+			for (var i: Number = 0; i < this.cards.length; i++) {
+				
+				if (this.cards[i].GetId() == card_id) {
+					
+					return i;
+					
+				}
+				
+			}
+			
+			return -1;
+			
+		}
+		
+		public function UpdateMC(): void {
+			
+			for (var i: Number = 0; i < this.cards.length; i++) {
+				
+				this.cards[i].getMC().x = i * 160 + this.GetPosX();
+				
+			}
 			
 		}
 		

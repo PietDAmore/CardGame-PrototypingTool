@@ -70,18 +70,23 @@
 			
 		}
 		
-		public function setUnvisible(vary : Boolean): void {
-
-			card_mc.visible = vary;
-			
-		}
-		
 		public function removeChildMC(): void {
 			
 			card_mc.visible = false;
-			//removeChild();
+		
+		}
+		
+		public function moveToDeck(target_deck: String): void {
+			
+			// shift this card to target_deck
 			
 		}
+		
+		public function moveToHand(target_location: String): void {
+			
+			// shift this card to target_location
+			
+		}		
 		
 		public function toString(): String {
 				
@@ -124,17 +129,17 @@
 		public static function ClickOnCard(card_id: Number, card_name: String, card_type: String, card_number: Number, card_symbol: String): Function {
 			
 			return function(e:MouseEvent): void {
-
+				
 				var cards_player_var: Number = GameController.GetInstance().cards_played += 1;
 				var active :String = GameController.GetInstance().active_player;
+
+				trace("active player is " + active);	// abort function if wrong player
+				
 				
 				var target_x: Number = GameController.GetInstance().playfield_x;			
 				var target_y: Number = GameController.GetInstance().playfield_y;
 				
 				// Find new card positions
-				
-				e.currentTarget.x = target_x;
-				GameController.GetInstance().SetNewTargetX(target_x);			
 				
 				e.currentTarget.y = target_y;			
 				GameController.GetInstance().SwitchPlayer();
