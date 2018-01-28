@@ -14,6 +14,8 @@
 		private var startplayer: Number = 1;
 		public var active_player: String = "player1";
 		private var player1: Player;
+		public var player_card: Number = 6;
+		
 		private var player2: Player;
 		private var playfield: Player;
 		public var playfield_x: Number = 0;
@@ -144,44 +146,41 @@
 					
 			var getting_player: Player = playfield;
 			var sending_player: Player = player1;
+			
+			// determin last card
+			var table_card_amounts: Number = playfield.GetCardsOnHand() -1;
 
 			//trace("cards on table " + getting_player.GetCardsOnHand()); // Anzahl der Karten
 			//trace("cards on table " + getting_player.GetCards());	//*** nur 4?
 			//trace("player1 cards = " + player1.GetCards());
 			
 			var target_cards: Vector.<Card>= getting_player.GetCards();
-			trace("target_cards " + target_cards);
 			
-			
-			
+			// var sender_id: Number = id;
 			var sender_strength: Number = strength;
 			
 			for (var i: Number = 0; i < target_cards.length; i++) {
-				
-				//trace(target_cards[i].GetNumber());
-				
-				// determin last card
-				var table_card_amounts: Number = playfield.GetCardsOnHand() -1;
-				
+		
 				// comparisson
-				var compare: Number = target_cards[table_card_amounts].GetNumber();
-				var card_id: Number = target_cards[table_card_amounts].GetId();
+				var compare: Number = target_cards[i].GetNumber();
+				var card_id: Number = target_cards[i].GetId();
+			
+				//trace(compare + " compared to " + sender_strength);
 				
-				trace("compare " + compare);
-				
-				if (compare < sender_strength) {
-						
-					trace(sender_strength + " was bigger." + compare);
+				if (sender_strength > compare) {
 					
-					playfield.RemoveCard(card_id);
+					trace(sender_strength + " was bigger then " + compare);
 
+					playfield.RemoveCard(compare);
+					target_cards[compare].setUnvisible(false);
+					
+					//table_card_amounts = playfield.GetCardsOnHand() -1;
+					//trace("cards left on table " + table_card_amounts);
 					
 					//target_cards[table_card_amounts].;
 					
 				}
-				
-				trace("cards on table " + getting_player.GetCards());
-				trace("target_cards " + target_cards);
+
 			}
 
 			

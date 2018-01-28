@@ -70,6 +70,12 @@
 			
 		}
 		
+		public function setUnvisible(vary : Boolean): void {
+
+			card_mc.visible = vary;
+			
+		}
+		
 		public function toString(): String {
 				
 			return card_name;
@@ -112,6 +118,7 @@
 
 			var cards_player_var: Number = GameController.GetInstance().cards_played += 1;
 			var active :String = GameController.GetInstance().active_player;
+			var card_value = GameController.GetInstance().player_card;
 			
 			var target_x: Number = GameController.GetInstance().playfield_x;			
 			var target_y: Number = GameController.GetInstance().playfield_y;
@@ -124,18 +131,9 @@
 			e.currentTarget.y = target_y;			
 			GameController.GetInstance().SwitchPlayer();
 			
-			// Get this card parameters
-			
-			//trace("card_numbr = " + this.card_number);
-			GameController.GetInstance().CompareCards(4);
-			
-			
-			// Try to find a lesser card
-			
-			//var selected_card: MovieClip = getMC();
-			//GameController.GetInstance().playfield.AddCard();
-			
-			//trace(active + " has put "+ selected_card + " on the table.");
+			// Get this card parameters			
+			GameController.GetInstance().CompareCards(card_value); //*** PROBLEM: wie bekomme ich GetNumber() in die 4?
+		
 		}
 		
 	}

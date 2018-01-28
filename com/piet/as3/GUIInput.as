@@ -1,9 +1,5 @@
 ﻿// # GUI INPUT
 
-/*
-var container: MovieClip = new ui_holder_mc();
-game_container.addChild(container);
-*/
 
 game_container.btn.addEventListener(MouseEvent.MOUSE_DOWN, button_press);
 

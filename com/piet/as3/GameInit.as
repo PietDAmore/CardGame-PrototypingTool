@@ -3,7 +3,6 @@ var debug: Boolean = false;
 
 // Game
 var game_update: Boolean = false;
-var battle: Boolean = false;
 var game_mode: String = "Singleplayer";
 var round: Number = 1;
 
